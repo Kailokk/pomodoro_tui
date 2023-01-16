@@ -33,7 +33,6 @@ fn main() {
         true,
     );
     loop {
-        //checks for input
         if poll(Duration::from_millis(333)).unwrap() {
             if let Ok(Event::Key(KeyEvent {
                 code: KeyCode::Char(c),
@@ -50,7 +49,6 @@ fn main() {
         } else {
         }
 
-        //conducts timer operation (ticking, changing mode, etc)
         timer.pump_timer();
     }
 }
@@ -70,7 +68,6 @@ fn draw_graphics(duration: Duration, mode: &TimerMode, is_running: bool) {
     } else {
         format!("Mode: {} (Paused)", mode.get_string())
     };
-    /*  */
 
     stdout.write(format!("---------").as_bytes()).unwrap();
     stdout.queue(cursor::MoveToColumn(0)).unwrap();
@@ -81,6 +78,11 @@ fn draw_graphics(duration: Duration, mode: &TimerMode, is_running: bool) {
     stdout.queue(cursor::MoveToColumn(0)).unwrap();
     stdout.queue(cursor::MoveToRow(2)).unwrap();
     stdout.write(format!("---------").as_bytes()).unwrap();
+    stdout.queue(cursor::MoveToColumn(0)).unwrap();
+    stdout.queue(cursor::MoveToRow(3)).unwrap();
+    stdout
+        .write(format!("                                                      ").as_bytes())
+        .unwrap();
     stdout.queue(cursor::MoveToColumn(0)).unwrap();
     stdout.queue(cursor::MoveToRow(3)).unwrap();
     stdout.write(format!("{}", mode_string).as_bytes()).unwrap();
